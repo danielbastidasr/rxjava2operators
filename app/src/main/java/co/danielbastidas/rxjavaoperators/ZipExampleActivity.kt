@@ -3,31 +3,29 @@ package co.danielbastidas.rxjavaoperators
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import co.danielbastidas.rxjavaoperators.operators.ZipExample
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class RxjavaMainActivity : AppCompatActivity() {
+class ZipExampleActivity : AppCompatActivity() {
+    lateinit var textView: TextView
+    private var disposables: CompositeDisposable = CompositeDisposable()
 
-    lateinit var textView:TextView
-
-    var disposables:CompositeDisposable = CompositeDisposable()
-
-    lateinit var transformationalOperators:TransformationalOperators
+    private lateinit var transformationalOperators: ZipExample
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rxjava_main)
+        setContentView(R.layout.activity_zip_example)
 
-        transformationalOperators= TransformationalOperators(this )
+        transformationalOperators= ZipExample(this)
         textView = findViewById(R.id.alertTitle)
-        textView.text = ""
+        textView.text = "Starting..."
 
-        // After 5 seconds print the result of the 4 async operations
+        //Execute Example
         disposables.add(exampleZip())
-
 
     }
 
@@ -36,16 +34,12 @@ class RxjavaMainActivity : AppCompatActivity() {
         disposables.clear()
     }
 
-
     private fun exampleZip(): Disposable {
         return transformationalOperators.getZipObservableFrom()
-                .delay(5, TimeUnit.SECONDS)
+                // After a second print the result of the 4 async operations
+                .delay(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { t -> textView.text = textView.text.toString()+"\n"+"Finished :"+t.toString()}
     }
-
-
-
-
 }

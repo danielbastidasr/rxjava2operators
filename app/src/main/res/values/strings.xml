@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RxjavaOperators</string>
+    <string name="zip_example">Zip Example</string>
+    <string name="flatmap_example">FlatMap/ Map example</string>
+    <string name="please_wait">"PLEASE, WAIT FOR THE RESULT\nMEANWHILE CHECK THE CODE"</string>
+    <string name="before_map">Observable before Map</string>
+    <string name="after_map">Observable after Map</string>
+    <string name="after_flatmap">After applying FlatMap</string>
 </resources>
